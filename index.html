@@ -108,11 +108,10 @@
         ///////////////////////////////////////////////////////////////////////////////////////////////
 
         var svg = d3.select("svg");
-        var path = d3.geoPath();
+        
         var format = d3.format("");
 
-        var colorScheme = colors[9];
-        colorScheme.unshift("#eee");
+        var colorScheme = colors[numOfClasses];
 
         var color = d3.scaleQuantize()
         .domain([min, max])
@@ -213,17 +212,14 @@
             var rateById = {};
             var nameById = {};
 
-            newmigration.forEach(function(d) {
-              var newcode = '';
-              if (d.code.length < 5) {
-                newcode = '0' + d.code;
-                d.code = newcode;
-              }
+           newmigration.forEach(function(d) {
               rateById[d.code] = +d.rate;
               nameById[d.code] = d.code;
             });
 
-            counties.style("fill", function(d) { return color(rateById[d.id]); })
+                      polygons.style("fill", function(d){
+              return color(rateById[d.id]);
+            })
             .on("mouseover", function(d) {
               div.transition()
               .duration(200)
@@ -238,13 +234,7 @@
                 .style("opacity", 0);});
               }
 
-              svg.append("path")
-              .datum(topojson.mesh(us, us.objects.states, (a, b) => a !== b))
-              .attr("fill", "none")
-              .attr("stroke", "white")
-              .attr("stroke-linejoin", "round")
-              .attr("d", path);
-
+        
               // After the transition finishes, you can mouseover to change the year.
               function enableInteraction() {
                 var yearScale = d3.scaleLinear()
@@ -276,13 +266,13 @@
               // Updates the display to show the specified year.
               function displayYear(year) {
                 currentYear = year;
-                counties.call(style,year)
+                polygons.call(style,year)
                 label.text(Math.round(year));
               }
 
               // Interpolates the dataset for the given (fractional) year.
               function interpolateData(year) {
-                return unemployment.filter(function(row) {
+                return csvFile.filter(function(row) {
                   return row['year'] == Math.round(year);
                 });
               }
