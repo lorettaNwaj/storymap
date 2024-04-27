@@ -101,7 +101,7 @@
 
         // Find the abbreviations of color names from https://colorbrewer2.org/
         var colors =  colorbrewer.Reds;
-        var numOfClasses = 5;
+        var numOfClasses = 9;
 
         //DO NOT CHANGE ANYTHING BELOW THIS POINT UNLESS YOU KNOW WHAT YOU ARE DOING
         ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -111,7 +111,7 @@
         var path = d3.geoPath();
         var format = d3.format("");
 
-        var colorScheme = colors[5];
+        var colorScheme = colors[9];
         colorScheme.unshift("#eee");
 
         var color = d3.scaleQuantize()
