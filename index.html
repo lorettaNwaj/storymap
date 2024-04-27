@@ -99,9 +99,10 @@
         var height = 600;
         var width = 960;
 
-        // Find the abbreviations of color names from https://colorbrewer2.org/
+     // Find the abbreviations of color names from https://colorbrewer2.org/
         var colors =  colorbrewer.Reds;
         var numOfClasses = 5;
+
 
         //DO NOT CHANGE ANYTHING BELOW THIS POINT UNLESS YOU KNOW WHAT YOU ARE DOING
         ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -111,7 +112,8 @@
         
         var format = d3.format("");
 
-        var colorScheme = colors[numOfClasses];
+         var colorScheme = colors[5];
+        colorScheme.unshift("#eee");
 
         var color = d3.scaleQuantize()
         .domain([min, max])
