@@ -262,15 +262,20 @@
               // Tweens the entire chart by first tweening the year, and then the data.
               // For the interpolated data, the dots and label are redrawn.
               function tweenYear() {
-                var year = d3.interpolateNumber(beginTime, endTime);
-                return function(t) { displayYear(year(t)); };
+                //var year = d3.interpolateNumber(beginTime, endTime);
+                //return function(t) { displayYear(year(t)); };
+		var currentYear = yearScale(t);
+      // Increment the year by 10
+             currentYear = Math.round(currentYear / 10) * 10;
+               displayYear(currentYear);
               }
 
               // Updates the display to show the specified year.
-              function displayYear(year) {
-                currentYear = year;
-                STATES.call(style,year)
-                label.text(Math.round(year));
+             function displayYear(year) {
+                STATES.call(style, year);
+                label.text(year);
+               }
+
               }
 
               // Interpolates the dataset for the given (fractional) year.
