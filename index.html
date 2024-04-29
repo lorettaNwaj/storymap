@@ -103,7 +103,7 @@
 
         // Find the abbreviations of color names from https://colorbrewer2.org/
         var colors =  colorbrewer.Spectral;
-        var numOfClasses = 5;
+        var numOfClasses = 9;
 
         //DO NOT CHANGE ANYTHING BELOW THIS POINT UNLESS YOU KNOW WHAT YOU ARE DOING
         ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -112,7 +112,7 @@
         var svg = d3.select("svg");
         var format = d3.format("");
 
-        var colorScheme = colors[5];
+        var colorScheme = colors[9];
 
         var color = d3.scaleQuantize()
         .domain([min, max])
