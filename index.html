@@ -78,23 +78,23 @@
         <script>
 
         // var topoJSONFile = "data/contour.json";
-        var topoJSONFile = "data/contour.geojson";
+        var topoJSONFile = "data/STATES.geojson";
         // enter the desired projection - note that input geojson has to be in WGS84 GCS
         var projection = d3.geoTransverseMercator().rotate([87,0]);
         //enter the name of the feature or geometry collection within the topoJSONFile
         // for example, for the default dataset us.objects.polygons, enter polygons
-        var featureCollection = "contour";
+        var featureCollection = "STATES";
         // id field in the topojson file
-        var idfield = "area_numbe"
-        var csvFile = "data/ElevatedBloodLeadLevelRate.csv";
-        var attributeAlias = "Lead poisoning rate (%)";
+        var idfield = "FIPS"
+        var csvFile = "data/netflowratio.csv";
+        var attributeAlias = "netflow (%)";
 
         // enter the minimum and maximum values of the attribute over years
         // one legend is created based on equal interval classification for all years.
-        var min = 0, max = 40;
+        var min = -1, max = 1;
 
         //enter the beginning year or date/time of animation.
-        var beginTime = 1999, endTime = 2013;
+        var beginTime = 1800, endTime = 1969;
 
         // width and height of map frame
         var height = 600;
@@ -167,7 +167,7 @@
         .defer(d3.csv, csvFile)
         .await(ready);
 
-        function ready(error, feature_col, csvdata) {
+        function ready(error, featureCollection, csvFile) {
           if (error) throw error;
 
           // Initialize data to beginning year
@@ -191,12 +191,12 @@
           .tween("year", tweenYear)
           //.each();
 
-          var features = feature_col.features;
+          var features = featureCollection.features;
           features.forEach((item) => {
             item.id = +item.properties[idfield]
           });
           var path = d3.geoPath();
-          path.projection(projection.fitSize([width, height], feature_col));
+          path.projection(projection.fitSize([width, height], featureCollection));
 
           var polygons = svg.append("g")
           .attr("class", "polygons")
@@ -209,14 +209,14 @@
 
           function style(polygons, year){
             // console.log(polygons);
-            newunemployment = interpolateData(year);
+            newmigration = interpolateData(year);
 
             var rateById = {};
             var nameById = {};
 
-            newunemployment.forEach(function(d) {
-              rateById[d.code] = +d.rate;
-              nameById[d.code] = d.name;
+            newmigration.forEach(function(d) {
+              rateById[d.rootsid] = +d.NetflowRatio;
+              nameById[d.rootsid] = d.rootsid;
             });
 
             polygons.style("fill", function(d){
