@@ -275,7 +275,7 @@
 
               // Interpolates the dataset for the given (fractional) year.
               function interpolateData(year) {
-                return csvdata.filter(function(row) {
+                return csvFile.filter(function(row) {
                   return row['year'] == Math.round(year);
                 });
               }
