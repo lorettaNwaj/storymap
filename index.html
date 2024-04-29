@@ -200,8 +200,8 @@
           var path = d3.geoPath();
           path.projection(projection.fitSize([width, height], featureCollection));
 
-          var polygons = svg.append("g")
-          .attr("class", "polygons")
+          var STATES = svg.append("g")
+          .attr("class", "STATES")
           .selectAll("path")
           .data(features)
           .enter()
@@ -209,7 +209,7 @@
           .attr("d", path)
           .call(style,currentYear);
 
-          function style(polygons, year){
+          function style(STATES, year){
             // console.log(polygons);
             newmigration = interpolateData(year);
 
@@ -221,7 +221,7 @@
               nameById[d.rootsid] = d.rootsid;
             });
 
-            polygons.style("fill", function(d){
+            STATES.style("fill", function(d){
               return color(rateById[d.id]);
             })
             .on("mouseover", function(d) {
@@ -269,7 +269,7 @@
               // Updates the display to show the specified year.
               function displayYear(year) {
                 currentYear = year;
-                polygons.call(style,year)
+                STATES.call(style,year)
                 label.text(Math.round(year));
               }
 
