@@ -1,4 +1,4 @@
-rootsid,Outflows,Inflows,NetflowRatio,year,Period
+code,Outflows,Inflows,rate,year,Period
 101,162,80,-0.34,1930,1930 - 1939
 102,3,5,0.25,1930,1930 - 1939
 104,92,144,0.22,1930,1930 - 1939
