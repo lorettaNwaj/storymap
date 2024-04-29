@@ -81,47 +81,46 @@
           var beginTime = 1800, endTime = 1960;
           var height = 690;
           var width = 840;
-          var colors = colorbrewer.RdYlBu;
-          var numOfClasses = 5;
+         var manualBreaks = [-1, -0.5, 0, 0.5, 1];
 
           var svg = d3.select("svg");
           var format = d3.format("");
-          var colorScheme = colors[5];
+          var colorScheme = colorbrewer.RdYlBu[5]; // RdYlBu color scheme with 5 classes
           var color = d3.scaleQuantize()
-            .domain([min, max])
+            .domain(manualBreaks)
             .range(colorScheme);
 
           var x = d3.scaleLinear()
-            .domain(d3.extent(color.domain()))
-            .rangeRound([600,860]);
+            .domain([0, manualBreaks.length - 1])
+            .rangeRound([600, 860]);
 
           var g = svg.append("g")
             .attr("transform", "translate(0,40)");
 
           g.selectAll("rect")
-            .data(color.range().map(function(d){ return color.invertExtent(d); }))
+            .data(manualBreaks.slice(0, -1)) // Use manual breaks except for the last one
             .enter()
             .append("rect")
             .attr("height", 8)
-            .attr("x", function(d){ return x(d[0]); })
-            .attr("width", function(d){ return x(d[1]) - x(d[0]); })
-            .attr("fill", function(d){ return color(d[0]); });
+            .attr("x", function(d, i) { return x(i); })
+            .attr("width", x(1) - x(0))
+            .attr("fill", function(d) { return color(d); });
 
-          g.append("text")
-            .attr("class", "caption")
-            .attr("x", x.range()[0])
-            .attr("y", -6)
-            .attr("fill", "#000")
-            .attr("text-anchor", "start")
-            .attr("font-weight", "bold")
-            .text(attributeAlias);
-
-          g.call(d3.axisBottom(x)
-            .tickSize(13)
-            .tickFormat(format)
-            .tickValues(color.range().slice(1).map(function(d){ return color.invertExtent(d)[0]; })))
-            .select(".domain")
-            .remove();
+            g.append("text")
+              .attr("class", "caption")
+              .attr("x", x(0))
+              .attr("y", -6)
+              .attr("fill", "#000")
+              .attr("text-anchor", "start")
+              .attr("font-weight", "bold")
+              .text(attributeAlias);
+            
+            g.call(d3.axisBottom(x)
+              .tickSize(13)
+              .tickFormat(function(d, i) { return manualBreaks[i]; })
+              .tickValues(d3.range(manualBreaks.length)))
+              .select(".domain")
+              .remove();
 
           var div = d3.select("body")
             .append("div")
