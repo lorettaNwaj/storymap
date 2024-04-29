@@ -103,14 +103,14 @@
 
         // Find the abbreviations of color names from https://colorbrewer2.org/
         var colors = colorbrewer.RdYlBu;
-	var numOfClasses = 5;
+	var numOfClasses =5;
 	var svg = d3.select("svg");
 	var format = d3.format("");
 	
 	var colorScheme = colors[5];
 	
 	// Define your manual breaks here for 5 classes
-	var breaks = [-1, -0.5, 0, 0.5, 1];
+	var breaks = [-1, -0.5,  0.5, 1];
 	
 	var color = d3.scaleThreshold()
 	    .domain(breaks)
