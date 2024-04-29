@@ -218,7 +218,7 @@
 
             newmigration.forEach(function(d) {
               rateById[d.rootsid] = +d.NetflowRatio;
-              nameById[d.STATE_NAME] = d.rootsid;
+              nameById[d.rootsid] = d.rootsid;
             });
 
             STATES.style("fill", function(d){
@@ -269,7 +269,7 @@
               // Updates the display to show the specified year.
               function displayYear(year) {
                 currentYear = year;
-                counties.call(style,year)
+                STATES.call(style,year)
                 label.text(Math.round(year));
               }
 
