@@ -80,7 +80,9 @@
        // var topoJSONFile = "data/contour.json";
         var topoJSONFile = "data/STATES.geojson";
         // enter the desired projection - note that input geojson has to be in WGS84 GCS
-        var projection = d3.geoTransverseMercator().rotate([90,0]);
+       // var projection = d3.geoTransverseMercator().rotate([90,0]);
+	var projection = d3.geoAlbers().rotate([100,0]).fitExtent([[80, 80]);
+
         //enter the name of the feature or geometry collection within the topoJSONFile
         // for example, for the default dataset us.objects.polygons, enter polygons
         var featureCollection = "STATES";
