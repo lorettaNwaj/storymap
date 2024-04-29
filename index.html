@@ -6,13 +6,8 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
-
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-
-																					   
-																							 
-
+  <link rel="stylesheet" href="style.css">																					   																					
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
   <script src="https://d3js.org/topojson.v1.min.js"></script>
@@ -49,8 +44,6 @@
     </div>
     <!-- /.container-fluid -->
   </nav>
-
-
   <!-- TODO this file has become a mess, refactor it -->
 
   <header class="header-section ">
@@ -108,12 +101,7 @@
 
         // Find the abbreviations of color names from https://colorbrewer2.org/
         var colors = colorbrewer.RdYlBu;
-	var numOfClasses =6;
-
-																					
-																										
-																									   
-
+	var numOfClasses =6;																																																																		
 	var svg = d3.select("svg");
 								
 	var format = d3.format("");
@@ -163,11 +151,6 @@
 	    .append("div")
 	    .attr("class", "tooltip")
 	    .style("opacity", 0);
-
-								   
-					  
-								 
-							 
 
         // Add the year label; the value is set on transition.
         var label = svg.append("text")
@@ -231,11 +214,7 @@
             var nameById = {};
 
             newmigration.forEach(function(d) {
-							   
-									  
-									   
-								 
-			   
+
               rateById[d.rootsid] = +d.NetflowRatio;
               nameById[d.rootsid] = d.rootsid;
             });
@@ -256,14 +235,7 @@
                 .duration(500)
                 .style("opacity", 0);});
               }
-
-								
-																			 
-								   
-									  
-											   
-							   
-
+	
               // After the transition finishes, you can mouseover to change the year.
               function enableInteraction() {
                 var yearScale = d3.scaleLinear()
@@ -287,19 +259,9 @@
 
               // Tweens the entire chart by first tweening the year, and then the data.
 // For the interpolated data, the dots and label are redrawn.
-// Initialize global variables (assuming these are defined elsewhere)
-																	
-															 
-			   
-
-/// Create an interpolator for the year
 // Create an interpolator for the year
 function tweenYear() {
   var yearInterpolator = d3.interpolateNumber(beginTime, endTime);
-										 
-											 
-			   
-
   return function(t) {
     var interpolatedYear = yearInterpolator(t);
     var decadeYear = Math.round(interpolatedYear / 10) * 10; // Round to nearest decade
@@ -307,10 +269,6 @@ function tweenYear() {
     displayYear(decadeYear);
   };
 }
-
-
-// Updates the display to show the specified year
-// Updates the display to show the specified year
 // Updates the display to show the specified year
 function displayYear(year) {
   currentYear = year;
@@ -319,8 +277,6 @@ function displayYear(year) {
     label.text(year + "s"); // Display the correct decade year
   }
 }
-
-
 
 // Interpolates the dataset for the given (fractional) year
 function interpolateData(year) {
