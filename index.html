@@ -193,7 +193,7 @@
 
           var features = featureCollection.features;
           features.forEach((item) => {
-            item.id = item.properties[idfield]
+            item.id = +item.properties[idfield]
           });
           var path = d3.geoPath();
           path.projection(projection.fitSize([width, height], featureCollection));
