@@ -82,8 +82,8 @@
 
 <script>
     // JavaScript code here
-    var topoJSONFile = "data/STATES.geojson";
-    var featureCollection = "STATES";
+    var topoJSONFile = "data/states.json";
+    var featureCollection = "states";
     var csvFile = "data/netflowratio.csv";
     var attributeAlias = "netflowratio";
     var idfield = "code"
@@ -151,7 +151,7 @@
       .defer(d3.csv, csvFile)
       .await(ready);
 
-    function ready(error, STATES, csvFile) {
+    function ready(error, states, csvFile) {
       if (error) throw error;
       var currentYear = beginTime;
       var box = label.node().getBBox();
@@ -169,7 +169,7 @@
         .ease(d3.easeLinear)
         .tween("year", tweenYear);
 
-      var features = STATES.features;
+      var features = states.features;
       features.forEach(function(item) {
         item.id = +item.properties[idfield];
       });
