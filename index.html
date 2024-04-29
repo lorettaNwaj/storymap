@@ -203,7 +203,7 @@
           var STATES = svg.append("g")
           .attr("class", "STATES")
           .selectAll("path")
-          .data(features)
+          .data(STATES.features)
           .enter()
           .append("path")
           .attr("d", path)
