@@ -85,7 +85,7 @@
         // for example, for the default dataset us.objects.polygons, enter polygons
         var featureCollection = "STATES";
         // id field in the topojson file
-        var idfield = "FIPS"
+        var idField = "FIPS"
         var csvFile = "data/netflowratio.csv";
         var attributeAlias = "netflow (%)";
 
@@ -215,7 +215,7 @@
             var nameById = {};
 
             newmigration.forEach(function(d) {
-              rateById[d.rootsid] = d.NetflowRatio;
+              rateById[d.rootsid] = +d.NetflowRatio;
               nameById[d.rootsid] = d.rootsid;
             });
 
