@@ -85,7 +85,8 @@
 
           var svg = d3.select("svg");
           var format = d3.format("");
-          var colorScheme = colorbrewer.RdYlBu[6]; // RdYlBu color scheme with 5 classes
+          var colorScheme = [d3.color("#d7191c"), d3.color("#fdae61"), d3.color("#ffffbf"), d3.color("#a6d96a"),d3.color("#1a9641 ")]
+
           var color = d3.scaleQuantize()
             .domain(manualBreaks)
             .range(colorScheme);
