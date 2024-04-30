@@ -182,8 +182,8 @@
           .attr("class", "overlay")
           .attr("x", box.x)
           .attr("y", box.y)
-          .attr("width", box.width)
-          .attr("height", box.height)
+          .attr("width", box.width + 20)
+          .attr("height", box.height + 20)
           .on("mouseover", enableInteraction);
 
           // Start a transition that interpolates the data based on year.
@@ -242,24 +242,41 @@
 	
               // After the transition finishes, you can mouseover to change the year.
               function enableInteraction() {
-                var yearScale = d3.scaleLinear()
-                .domain([beginTime, endTime])
-                .range([box.x + 10, box.x + box.width - 10])
-                .clamp(true);
+                  var yearScale = d3.scaleLinear()
+                      .domain([beginTime, endTime])
+                      .range([box.x + 10, box.x + box.width - 10])
+                      .clamp(true);
 
-                // Cancel the current transition, if any.
-                svg.transition().duration(0);
+                  overlay
+                      .on("mouseover", mouseover)
+                      .on("mouseout", mouseout)
+                      .on("mousemove", mousemove)
+                      .on("touchmove", mousemove);
 
-                overlay
-                .on("mouseover", mouseover)
-                .on("mouseout", mouseout)
-                .on("mousemove", mousemove)
-                .on("touchmove", mousemove);
-
-                function mouseover() { label.classed("active", true); }
-                function mouseout() { label.classed("active", false); }
-                function mousemove() { displayYear(yearScale.invert(d3.mouse(this)[0])); }
+              function mouseover() { 
+                  label.classed("active", true); 
+                  div.transition().duration(200).style("opacity", .9);
               }
+
+              function mouseout() { 
+                  label.classed("active", false); 
+                  div.transition().duration(500).style("opacity", 0);
+              }
+
+              function mousemove() {
+                  var mouseX = d3.mouse(this)[0];
+                  var newYear = Math.round(yearScale.invert(mouseX) / 10) * 10;
+                  if (newYear !== currentYear) {
+                      displayYear(newYear);
+                  }
+
+                  // Update tooltip position
+                  div.html(nameById[d.id] + ' in ' + currentYear +': <br><strong>' + rateById[d.id] + '</strong>')
+                      .style("left", (d3.event.pageX) + "px")
+                      .style("top", (d3.event.pageY - 28) + "px");
+    }
+}
+
 
               // For the interpolated data, the dots and label are redrawn.
 // Create an interpolator for the year
@@ -288,9 +305,6 @@
             return +row['year'] === year; // Ensure you are comparing numbers, not strings
           });
         }
-
-
-
         };
             </script>
           </div>
