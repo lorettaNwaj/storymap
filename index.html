@@ -58,7 +58,7 @@
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
-              <h1>U.S. Migration 1800 - 1969 by state</h1>
+              <h1>U.S. Migration 1650 - 1969 by state</h1>
               <span class="post-meta">Posted on April 29, 2024</span>
             </div>
           </div>
@@ -74,7 +74,7 @@
         <svg width="960" height="600"></svg>
         <h3 id="using-the-map">Using the Map</h3>
         <ol>
-          <li>The map will animate automatically to show Migration in the United states 1800 - 1969.</li>
+          <li>The map will animate automatically to show Migration in the United states 1650 - 1969.</li>
           <li>At any point, you can hover over the year label (on the right side) to stop the animation.  Moving your cursor horizontally over the year label will automatically update the year that is shown on the choropleth (move left to decrease the year, right to increase the year).</li>
           <li>Hover over a state to see a tooltip providing the state name and the Net flow ratio in that year.</li>
         </ol>
@@ -86,7 +86,7 @@
         // for example, for the default dataset us.objects.counties, enter counties
         var featureCollection = "STATES";
         var idfield = "rootsid"
-        var csvFile = "data/netflowratio.csv";
+        var csvFile = "data/final.csv";
         var attributeAlias = "Net flow ratio";
 
         // enter the minimum and maximum values of the attribute over years
@@ -94,7 +94,7 @@
         var min = -1, max = 1;
 
         //enter the beginning year or date/time of animation.
-        var beginTime = 1800, endTime = 1960;
+        var beginTime = 1650, endTime = 1960;
 
         // width and height of map frame
         var height = 690;
