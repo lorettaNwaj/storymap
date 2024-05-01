@@ -238,9 +238,21 @@
               div.transition()
               .duration(200)
               .style("opacity", .9);
-              div.html(nameById[d.id] + ' in ' + currentYear +': <br><strong>' + rateById[d.id] + '</strong>')
-              .style("left", (d3.event.pageX) + "px")
-              .style("top", (d3.event.pageY - 28) + "px");})
+              var name = nameById[d.id];
+              var rate = rateById[d.id];
+              if (typeof name == 'undefined' || typeof rate == 'undefined'){
+                div.html("No data available")
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+              } else {
+                div.html(name + ' in ' + currentYear + ': <br><strong>' + rate + '</strong>')
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+
+              }
+            })
+
+          
               // fade out tooltip on mouse out
               .on("mouseout", function(d) {
                 div.transition()
