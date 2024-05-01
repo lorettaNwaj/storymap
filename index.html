@@ -235,27 +235,30 @@
                 })
             
             .on("mouseover", function(d) {
-              div.transition()
-              .duration(200)
-              .style("opacity", .9);
-              let name = nameById[d.id];
-              let rate = rateById[d.id];
+  	      div.transition()
+		.duration(200)
+		.style("opacity", .9);
 
-	       if (typeof name === 'undefined' || typeof rate === 'undefined') {
-		    name = "No data";
-		    rate = "No data";
-		  }
-		
-	       div.html(name + ' in ' + currentYear +': <br><strong>' + rate + '</strong>')
-		    .style("left", (d3.event.pageX) + "px")
-		    .style("top", (d3.event.pageY - 28) + "px");
-		})
-              // fade out tooltip on mouse out
-              .on("mouseout", function(d) {
-                div.transition()
-                .duration(500)
-                .style("opacity", 0);});
-              }
+              var name = nameById[d.id];
+	      var rate = rateById[d.id];
+
+               if (typeof name === 'undefined' || typeof rate === 'undefined') {
+                  div.html("No data available")
+		      .style("left", (d3.event.pageX) + "px")
+		      .style("top", (d3.event.pageY - 28) + "px");
+	    } else {
+	      div.html(name + ' in ' + currentYear +': <br><strong>' + rate + '</strong>')
+	        .style("left", (d3.event.pageX) + "px")
+	        .style("top", (d3.event.pageY - 28) + "px");
+	  }
+})
+// fade out tooltip on mouse out
+.on("mouseout", function(d) {
+  div.transition()
+    .duration(500)
+    .style("opacity", 0);
+});
+
 	
               // After the transition finishes, you can mouseover to change the year.
               function enableInteraction() {
