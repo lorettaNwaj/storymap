@@ -221,12 +221,19 @@
             newmigration.forEach(function(d) {
 
               rateById[d.rootsid] = +d.NetflowRatio;
-              nameById[d.rootsid] = d.rootsid;
+              nameById[d.rootsid] = d.name;
             });
 
-            STATES.style("fill", function(d){
-              return color(rateById[d.id]);
-            })
+       
+              STATES.style("fill", function(d) {
+                  var value = rateById[d.id];
+                  if (value !== undefined ) {
+                    return color(value);
+                  } else {
+                    return "yellow"; // Change this to your desired color for undefined/null values
+                  }
+                })
+            
             .on("mouseover", function(d) {
               div.transition()
               .duration(200)
