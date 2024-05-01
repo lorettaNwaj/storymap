@@ -221,7 +221,7 @@
             newmigration.forEach(function(d) {
 
               rateById[d.rootsid] = +d.NetflowRatio;
-              nameById[d.rootsid] = d.name;
+              nameById[d.rootsid] = d.rootsid;
             });
 
             STATES.style("fill", function(d){
