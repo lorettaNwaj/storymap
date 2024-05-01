@@ -97,7 +97,7 @@
         var beginTime = 1650, endTime = 1960;
 
         // width and height of map frame
-        var height = 690;
+        var height = 680;
         var width = 840;
 
         // Find the abbreviations of color names from https://colorbrewer2.org/
@@ -114,6 +114,25 @@
 
         var colorScheme = colors[5];
         //colors.unshift("grey"); // Add grey color code here
+
+      
+        var boxGroup = svg.append('g');
+
+    // Append a rectangle with grey fill color
+       boxGroup.append('rect')
+        .attr('x', 900) // Adjust x position
+        .attr('y', 40) // Adjust y position
+        .attr('width', 50) // Adjust width
+        .attr('height', 8) // Adjust height
+        .attr('fill', 'grey'); // Set fill color
+
+    // Append text to the box
+        boxGroup.append('text')
+        .attr('x', 900) // Adjust x position of text
+        .attr('y', 60) // Adjust y position of text
+        .attr('font-size', 10) // Set font size
+        .attr('fill', 'black') // Set text color
+        .text('No data'); // Set text content
 
 
         var color = d3.scaleQuantize()
@@ -299,7 +318,7 @@
 
 
               // For the interpolated data, the dots and label are redrawn.
-// Create an interpolator for the year
+             // Create an interpolator for the year
         function tweenYear() {
           var yearInterpolator = d3.interpolateNumber(beginTime, endTime);
           return function(t) {
