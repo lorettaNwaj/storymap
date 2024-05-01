@@ -113,7 +113,7 @@
         var format = d3.format(".2f");
 
         var colorScheme = colors[5];
-        //colors.unshift("#ffffcc"); // Add yellow color code here
+        //colors.unshift("grey"); // Add grey color code here
 
 
         var color = d3.scaleQuantize()
@@ -230,7 +230,7 @@
                   if (value !== undefined ) {
                     return color(value);
                   } else {
-                    return "yellow"; // Change this to your desired color for undefined/null values
+                    return "grey"; // Change this to your desired color for undefined/null values
                   }
                 })
             
