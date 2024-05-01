@@ -113,7 +113,7 @@
         var format = d3.format(".1f");
 
         var colorScheme = colors[5];
-        colors.unshift("#ffffcc"); // Add yellow color code here
+        //colors.unshift("#ffffcc"); // Add yellow color code here
 
 
         var color = d3.scaleQuantize()
@@ -224,13 +224,9 @@
               nameById[d.rootsid] = d.rootsid;
             });
 
-            STATES.style("fill", function(d) {
-    if (rateById[d.id] === undefined || isNaN(rateById[d.id])) {
-      return "#ffffcc"; // Yellow color for missing or undefined values
-    } else {
-      return color(rateById[d.id]); // Use the color scale for other values
-    }
-  })
+            SSTATES.style("fill", function(d){
+              return color(rateById[d.id]);
+            })
             .on("mouseover", function(d) {
               div.transition()
               .duration(200)
