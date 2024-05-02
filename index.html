@@ -75,8 +75,8 @@
         <h3 id="using-the-map">Using the Map</h3>
         <ol>
           <li>The map will animate automatically to show Migration in the United states 1650 - 1969.</li>
-          <li>After the animation ends, you can hover over the year label (on the right side) display a specific year.  Moving your cursor horizontally over the year label will automatically update the year that is shown on the choropleth (move left to decrease the year, right to increase the year).</li>
-          <li>Hover over a state to see a tooltip providing the state name and the net flow ratio in that year.</li>
+          <li>At any point, you can hover over the year label (on the right side)to stop the animation.  Moving your cursor horizontally over the year label will automatically update the year that is shown on the choropleth (move left to decrease the year, right to increase the year).</li>
+          <li>Hover over a state to see a tooltip providing the state name and the migration efficiency in that year.</li>
         </ol>
         <script>
 
@@ -87,7 +87,7 @@
         var featureCollection = "STATES";
         var idfield = "rootsid"
         var csvFile = "newmerge.csv";
-        var attributeAlias = "Net flow ratio";
+        var attributeAlias = "Migration Efficiency";
 
         // enter the minimum and maximum values of the attribute over years
         // one legend is created based on equal interval classification for all years.
@@ -114,11 +114,9 @@
 
         var colorScheme = colors[5];
         //colors.unshift("grey"); // Add grey color code here
-
-      
         var boxGroup = svg.append('g');
 
-    // Append a rectangle with grey fill color
+       // Append a rectangle with grey fill color
        boxGroup.append('rect')
         .attr('x', 900) // Adjust x position
         .attr('y', 40) // Adjust y position
@@ -126,7 +124,7 @@
         .attr('height', 8) // Adjust height
         .attr('fill', 'grey'); // Set fill color
 
-    // Append text to the box
+        // Append text to the box
         boxGroup.append('text')
         .attr('x', 900) // Adjust x position of text
         .attr('y', 60) // Adjust y position of text
@@ -253,31 +251,31 @@
                   }
                 })
             
-            .on("mouseover", function(d) {
-              div.transition()
-              .duration(200)
-              .style("opacity", .9);
-              var name = nameById[d.id];
-              var rate = rateById[d.id];
-              if (typeof name == 'undefined' || typeof rate == 'undefined'){
-                div.html("No data available")
-                .style("left", (d3.event.pageX) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
-              } else {
-                div.html(name + ' in ' + currentYear + ': <br><strong>' + rate + '</strong>')
-                .style("left", (d3.event.pageX) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
-
-              }
-            })
-
-          
-              // fade out tooltip on mouse out
-              .on("mouseout", function(d) {
+              .on("mouseover", function(d) {
                 div.transition()
-                .duration(500)
-                .style("opacity", 0);});
-              }
+                .duration(200)
+                .style("opacity", .9);
+                var name = nameById[d.id];
+                var rate = rateById[d.id];
+                if (typeof name == 'undefined' || typeof rate == 'undefined'){
+                  div.html("No data available")
+                  .style("left", (d3.event.pageX) + "px")
+                  .style("top", (d3.event.pageY - 28) + "px");
+                } else {
+                  div.html(name + ' in ' + currentYear + ': <br><strong>' + rate + '</strong>')
+                  .style("left", (d3.event.pageX) + "px")
+                  .style("top", (d3.event.pageY - 28) + "px");
+
+                }
+              })
+
+            
+                // fade out tooltip on mouse out
+                .on("mouseout", function(d) {
+                  div.transition()
+                  .duration(500)
+                  .style("opacity", 0);});
+                }
 	
               // After the transition finishes, you can mouseover to change the year.
               function enableInteraction() {
@@ -285,6 +283,7 @@
                       .domain([beginTime, endTime])
                       .range([box.x + 10, box.x + box.width - 10])
                       .clamp(true);
+                  svg.transition().duration(0);
 
                   overlay
                       .on("mouseover", mouseover)
@@ -292,28 +291,28 @@
                       .on("mousemove", mousemove)
                       .on("touchmove", mousemove);
 
-              function mouseover() { 
-                  label.classed("active", true); 
-                  div.transition().duration(200).style("opacity", .9);
-              }
-
-              function mouseout() { 
-                  label.classed("active", false); 
-                  div.transition().duration(500).style("opacity", 0);
-              }
-
-              function mousemove() {
-                  var mouseX = d3.mouse(this)[0];
-                  var newYear = Math.round(yearScale.invert(mouseX) / 10) * 10;
-                  if (newYear !== currentYear) {
-                      displayYear(newYear);
+                  function mouseover() { 
+                      label.classed("active", true); 
+                      div.transition().duration(200).style("opacity", .9);
                   }
 
-                  // Update tooltip position
-                  div.html(nameById[d.id] + ' in ' + currentYear +': <br><strong>' + rateById[d.id] + '</strong>')
-                      .style("left", (d3.event.pageX) + "px")
-                      .style("top", (d3.event.pageY - 28) + "px");
-    }
+                  function mouseout() { 
+                      label.classed("active", false); 
+                      div.transition().duration(500).style("opacity", 0);
+                  }
+
+                  function mousemove() {
+                      var mouseX = d3.mouse(this)[0];
+                      var newYear = Math.round(yearScale.invert(mouseX) / 10) * 10;
+                      if (newYear !== currentYear) {
+                          displayYear(newYear);
+                      }
+
+                      // Update tooltip position
+                      div.html(nameById[d.id] + ' in ' + currentYear +': <br><strong>' + rateById[d.id] + '</strong>')
+                          .style("left", (d3.event.pageX) + "px")
+                          .style("top", (d3.event.pageY - 28) + "px");
+        }
 }
 
 
@@ -324,7 +323,7 @@
           return function(t) {
             var interpolatedYear = yearInterpolator(t);
             var decadeYear = Math.round(interpolatedYear / 10) * 10; // Round to nearest decade
-            console.log("Interpolated Year:", decadeYear); // Add this line to check the interpolated year
+            //console.log("Interpolated Year:", decadeYear); // Add this line to check the interpolated year
             displayYear(decadeYear);
           };
         }
